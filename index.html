@@ -2,10 +2,11 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>PRiTHI PRODUCTS</title>
+<title>PREETHi PRODUCTS</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
 <style>
     /* ORIGINAL STYLES PRESERVED */
@@ -14,12 +15,14 @@
     body{ font-family:'Poppins',sans-serif; background:linear-gradient(135deg,#fff5f8 0%,#ffd6eb 50%,#e0c3fc 100%); overflow-x:hidden; }
     #bgCanvas{ position:fixed; inset:0; width:100%; height:100%; z-index:0; pointer-events:none; }
 
-    /* FIXED SIGN IN BUTTON */
+    /* SIGN IN BUTTON & PROFILE IMAGE */
     .auth-btn-container {
         position: fixed;
         top: 25px;
         right: 30px;
         z-index: 100;
+        display: flex;
+        align-items: center;
     }
     #signInBtn {
         background: rgba(255, 255, 255, 0.6);
@@ -31,13 +34,25 @@
         font-weight: bold;
         cursor: pointer;
         transition: 0.3s;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    #signInBtn img {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        border: 1px solid #8e44ad;
     }
     #signInBtn:hover { background: #8e44ad; color: white; }
 
     /* NAV */
     nav{ position:relative; z-index:10; margin:18px auto; width:min(96%,1300px); padding:14px 28px; background:rgba(255,255,255,.45); backdrop-filter:blur(12px); border-radius:60px; display:flex; justify-content:center; align-items:center; border:1px solid rgba(255,255,255,.55); }
     nav ul{ display:flex; gap:26px; list-style:none; }
-    nav li{ font-size:14px; color:#8e44ad; font-weight:500; cursor: pointer; }
+    nav li{ font-size:14px; color:#8e44ad; font-weight:500; cursor: pointer; display: flex; align-items: center; gap: 8px; }
+    
+    /* Icon style - hidden on desktop by default unless you want them there */
+    nav li i { display: none; font-size: 18px; }
 
     /* HERO */
     .hero{ position:relative; z-index:5; min-height:calc(100vh - 120px); display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding-inline:16px; }
@@ -80,61 +95,50 @@
     .cart-item { display: flex; justify-content: space-between; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid #eee; }
     .checkout-btn { width: 100%; padding: 15px; background: #8e44ad; color: white; border: none; border-radius: 12px; margin-top: 20px; cursor: pointer; }
 
-    /* Responsive adjustments */
+    /* MOBILE ADJUSTMENTS */
     @media (max-width:768px){ 
-        .auth-btn-container { top: 10px; right: 10px; }
+        .auth-btn-container { top: 15px; right: 15px; }
+        #signInBtn { padding: 5px; border-radius: 50%; width: 45px; height: 45px; justify-content: center; }
+        #signInBtn span { display: none; } /* Hide text on mobile button */
+        #signInBtn img { margin: 0; width: 38px; height: 38px; }
+
+        /* Mobile Nav: Sticky Bottom with Icons */
+        nav {
+            position: fixed;
+            bottom: 30px;
+            top: auto;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            margin: 0;
+            border-radius: 30px;
+            padding: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        nav ul { width: 100%; justify-content: space-around; gap: 0; }
+        nav li { flex-direction: column; font-size: 10px; gap: 4px; }
+        nav li span { display: none; } /* Hide text label on mobile nav if you only want icons */
+        nav li i { display: block; } /* Show icons */
+
         #cartSidebar { width: 100%; right: -100%; }
+        
+        svg { transform: translateY(-20px); margin-bottom: -10px; }
+        text { font-size: clamp(80px, 9vw, 100px); }
+        .bouquet { width: clamp(320px, 45vw, 520px); margin-top: -5vh; }
     }
+
     @media (min-width:768px){
-    text{
-        font-size:clamp(58px,7vw,96px);
+        text{ font-size:clamp(58px,7vw,96px); }
+        .bouquet{ width:clamp(320px,45vw,520px); margin-top:-9vh; }
     }
-    .bouquet{
-        width:clamp(320px,45vw,520px);
-        margin-top:-9vh;
-    }
-}
-
-    @media (max-width:768px) {
-    /* Moves the 'PREETHi PRODUCTS' text higher */
-    svg {
-        transform: translateY(-20px); /* Adjust this value to move it higher */
-        margin-bottom: -10px;        /* Prevents extra whitespace below the SVG */
-    }
-
-    text {
-        font-size: clamp(80px, 9vw, 100px);
-    }
-
-    .bouquet {
-        width: clamp(320px, 45vw, 520px);
-        /* Keeping this at -9vh or adjusting to -5vh to control the final gap */
-        margin-top: -5vh; 
-    }
-}
-    /* ===== LAPTOPS ===== */
     @media (min-width:1024px){
-        text{
-            font-size:clamp(55px,4vw,104px);
-        }
-        .bouquet{
-            width:clamp(450px,32vw,620px);
-            margin-top:-20vh;
-        }
+        text{ font-size:clamp(55px,4vw,104px); }
+        .bouquet{ width:clamp(450px,32vw,620px); margin-top:-20vh; }
     }
-
-    /* ===== LARGE SCREENS / TV ===== */
     @media (min-width:1600px){
-        section{
-            min-height:92vh;
-        }
-        text{
-            font-size:110px;
-        }
-        .bouquet{
-            width:720px;
-            margin-top:-14vh;
-        }
+        section{ min-height:92vh; }
+        text{ font-size:110px; }
+        .bouquet{ width:720px; margin-top:-14vh; }
     }
 </style>
 </head>
@@ -144,14 +148,17 @@
 <canvas id="bgCanvas"></canvas>
 
 <div class="auth-btn-container">
-    <button id="signInBtn">Sign In</button>
+    <button id="signInBtn">
+        <span id="btnText">Sign In</span>
+    </button>
 </div>
 
 <nav>
     <ul>
-        <li onclick="document.getElementById('collection').scrollIntoView()">Collection</li>
-        <li onclick="toggleCart()">Cart (<span id="cartCount">0</span>)</li>
-        <li>Contact</li>
+        <li onclick="window.scrollTo(0,0)"><i class="fas fa-home"></i><span>Home</span></li>
+        <li onclick="document.getElementById('collection').scrollIntoView()"><i class="fas fa-th-large"></i><span>Collection</span></li>
+        <li onclick="toggleCart()"><i class="fas fa-shopping-bag"></i><span id="cartCountLabel">Cart (<span id="cartCount">0</span>)</span></li>
+        <li><i class="fas fa-envelope"></i><span>Contact</span></li>
     </ul>
 </nav>
 
@@ -170,7 +177,7 @@
         <h3 class="product-name">Royal Rose Bloom</h3>
         <p class="price-tag">Rs.500.00 <span class="discount">Rs.850.00</span></p>
         <div class="card-btns">
-            <button class="btn btn-cart" onclick="addToCart('Royal Rose Bloom', 45)">Add to Cart</button>
+            <button class="btn btn-cart" onclick="addToCart('Royal Rose Bloom', 500)">Add to Cart</button>
             <button class="btn btn-buy">Buy Now</button>
         </div>
     </div>
@@ -178,7 +185,7 @@
         <img src="https://images.unsplash.com/photo-1582794543139-8ac9cb0f7b11?auto=format&fit=crop&w=500" class="product-img">
         <h3 class="product-name">Lavender Mist</h3>
         <p class="price-tag">Rs.600.00</p> <div class="card-btns">
-            <button class="btn btn-cart" onclick="addToCart('Lavender Mist', 32)">Add to Cart</button>
+            <button class="btn btn-cart" onclick="addToCart('Lavender Mist', 600)">Add to Cart</button>
             <button class="btn btn-buy">Buy Now</button>
         </div>
     </div>
@@ -187,7 +194,7 @@
         <h3 class="product-name">Spring Daisy</h3>
         <p class="price-tag">Rs.1000.00 <span class="discount">Rs.1350.00</span></p>
         <div class="card-btns">
-            <button class="btn btn-cart" onclick="addToCart('Spring Daisy', 28)">Add to Cart</button>
+            <button class="btn btn-cart" onclick="addToCart('Spring Daisy', 1000)">Add to Cart</button>
             <button class="btn btn-buy">Buy Now</button>
         </div>
     </div>
@@ -196,7 +203,7 @@
         <h3 class="product-name">White Lily Vase</h3>
         <p class="price-tag">Rs.550.00</p>
         <div class="card-btns">
-            <button class="btn btn-cart" onclick="addToCart('White Lily Vase', 55)">Add to Cart</button>
+            <button class="btn btn-cart" onclick="addToCart('White Lily Vase', 550)">Add to Cart</button>
             <button class="btn btn-buy">Buy Now</button>
         </div>
     </div>
@@ -207,7 +214,7 @@
     <hr style="margin:20px 0">
     <div id="cartItems"></div>
     <div style="margin-top:20px">
-        <strong>Total: $<span id="cartTotal">0</span></strong>
+        <strong>Total: Rs.<span id="cartTotal">0</span></strong>
     </div>
     <button class="checkout-btn" onclick="checkout()">Buy All Items (One Click)</button>
     <button onclick="toggleCart()" style="background:none; border:none; margin-top:15px; cursor:pointer; color:#8e44ad;">Close</button>
@@ -228,42 +235,38 @@
         measurementId: "G-B5WRW9556N"
     };
 
-    // Initialize Firebase
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
     const db = getFirestore(app);
     const provider = new GoogleAuthProvider();
-    
-    // Force Google to show the account selector every time
     provider.setCustomParameters({ prompt: 'select_account' });
 
     let currentUser = null;
     let cart = [];
 
-    // --- FIX: SIGN IN LOGIC ---
     const authBtn = document.getElementById('signInBtn');
+    const btnText = document.getElementById('btnText');
     
     authBtn.addEventListener('click', async () => {
         if (!currentUser) {
             try {
-                const result = await signInWithPopup(auth, provider);
-                console.log("User signed in:", result.user.email);
+                await signInWithPopup(auth, provider);
             } catch (error) {
-                console.error("Auth Error:", error.code, error.message);
                 alert("Login failed: " + error.message);
             }
         } else {
-            signOut(auth).then(() => {
-                alert("Signed out successfully");
-            });
+            if(confirm("Do you want to sign out?")) {
+                signOut(auth);
+            }
         }
     });
 
     onAuthStateChanged(auth, async (user) => {
         if (user) {
             currentUser = user;
-            authBtn.innerText = `Sign Out (${user.displayName.split(' ')[0]})`;
-            // Load cart from Firebase
+            // SHOW GOOGLE PROFILE IMAGE
+            authBtn.innerHTML = `<img src="${user.photoURL}" alt="profile"> <span>Sign Out (${user.displayName.split(' ')[0]})</span>`;
+            
             const docRef = doc(db, "carts", user.email);
             const docSnap = await getDoc(docRef);
             if (docSnap.exists()) {
@@ -272,25 +275,21 @@
             }
         } else {
             currentUser = null;
-            authBtn.innerText = "Sign In";
+            authBtn.innerHTML = `<span id="btnText">Sign In</span>`;
             cart = [];
             updateCartUI();
         }
     });
 
-    // --- CART LOGIC ---
     window.addToCart = async (name, price) => {
         cart.push({ name, price });
         updateCartUI();
-        
         if (currentUser) {
             try {
                 await setDoc(doc(db, "carts", currentUser.email), { items: cart });
-            } catch (e) {
-                console.error("Error saving cart: ", e);
-            }
+            } catch (e) { console.error(e); }
         } else {
-            alert("Please sign in to save your cart to your account!");
+            alert("Please sign in to save your cart!");
         }
     };
 
@@ -298,42 +297,31 @@
         const container = document.getElementById('cartItems');
         const countSpan = document.getElementById('cartCount');
         const totalSpan = document.getElementById('cartTotal');
-        
         container.innerHTML = '';
         let total = 0;
-        
         cart.forEach((item) => {
             total += item.price;
-            container.innerHTML += `
-                <div class="cart-item">
-                    <span>${item.name}</span>
-                    <span>Rs.${item.price}.00</span>
-                </div>
-            `;
+            container.innerHTML += `<div class="cart-item"><span>${item.name}</span><span>Rs.${item.price}</span></div>`;
         });
-        
         countSpan.innerText = cart.length;
         totalSpan.innerText = total;
     };
 
-    window.toggleCart = () => {
-        document.getElementById('cartSidebar').classList.toggle('active');
-    };
-
+    window.toggleCart = () => document.getElementById('cartSidebar').classList.toggle('active');
     window.checkout = () => {
         if (cart.length === 0) return alert("Cart is empty");
-        alert(`Proceeding to buy all ${cart.length} items for Rs.${document.getElementById('cartTotal').innerText}!`);
+        alert(`Proceeding to buy for Rs.${document.getElementById('cartTotal').innerText}!`);
     };
 </script>
 
 <script>
+/* PARTICLES SCRIPT PRESERVED */
 const canvas = document.getElementById('bgCanvas');
 const ctx = canvas.getContext('2d');
 let particles=[];
 function resize(){ canvas.width=window.innerWidth; canvas.height=window.innerHeight; }
 window.addEventListener('resize',resize);
 resize();
-
 class Particle{
     constructor(type){ this.type=type; this.reset(); }
     reset(){
