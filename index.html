@@ -95,15 +95,23 @@
     }
 }
 
-    @media (max-width:768px){
-        text{
-            font-size:clamp(80px,9vw,100px);
-        }
-        .bouquet{
-            width:clamp(320px,45vw,520px);
-            margin-top:-9vh;
-        }
+    @media (max-width:768px) {
+    /* Moves the 'PREETHi PRODUCTS' text higher */
+    svg {
+        transform: translateY(-20px); /* Adjust this value to move it higher */
+        margin-bottom: -10px;        /* Prevents extra whitespace below the SVG */
     }
+
+    text {
+        font-size: clamp(80px, 9vw, 100px);
+    }
+
+    .bouquet {
+        width: clamp(320px, 45vw, 520px);
+        /* Keeping this at -9vh or adjusting to -5vh to control the final gap */
+        margin-top: -5vh; 
+    }
+}
     /* ===== LAPTOPS ===== */
     @media (min-width:1024px){
         text{
@@ -372,5 +380,4 @@ init(); animate();
 </script>
 
 </body>
-
 </html>
