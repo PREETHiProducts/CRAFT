@@ -415,20 +415,31 @@
     onAuthStateChanged(auth, async (user) => {
         if (user) {
             currentUser = user;
-            if(window.innerWidth > 768) authBtn.innerHTML = `<img src="${user.photoURL}"> <span>${user.displayName.split(' ')[0]}</span>`;
-            else authBtn.innerHTML = `<img src="${user.photoURL}" style="width:44px; height:44px; border-radius:50%;">`;
+            if (window.innerWidth > 768) {
+                authBtn.innerHTML = `
+                    <img src="${user.photoURL}" style="width:32px; height:32px; border-radius:50%; border:1px solid #8e44ad; object-fit:cover;"> 
+                    <span>${user.displayName.split(' ')[0]}</span>`;
+            } else {
+                authBtn.innerHTML = `
+                    <img src="${user.photoURL}" style="width:44px; height:44px; border-radius:50%; border:1px solid #8e44ad; object-fit:cover;">`;
+            }
             
             const docRef = doc(db, "carts", user.email);
             const docSnap = await getDoc(docRef);
             let remoteItems = docSnap.exists() ? docSnap.data().items || [] : [];
             if (cart.length > 0) {
-                cart = [...remoteItems, ...cart]; await setDoc(docRef, { items: cart }); localStorage.removeItem('guestCart');
+                cart = [...remoteItems, ...cart]; 
+                await setDoc(docRef, { items: cart }); 
+                localStorage.removeItem('guestCart');
             } else cart = remoteItems;
             updateCartUI();
-            showToast(`Welcome back, ${user.displayName.split(' ')[0]}!`, 'success');
+            showToast(`Welcome back!`, 'success');
         } else {
+            // ... rest of your existing sign out logic ...
             authBtn.innerHTML = `<i class="fas fa-user-circle mobile-user-icon"></i><span id="btnText">Sign In</span>`;
-            currentUser = null; cart = JSON.parse(localStorage.getItem('guestCart')) || []; updateCartUI();
+            currentUser = null; 
+            cart = JSON.parse(localStorage.getItem('guestCart')) || []; 
+            updateCartUI();
         }
     });
 
