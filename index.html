@@ -102,7 +102,7 @@
         position: relative; z-index: 10; padding: 50px 5% 150px 5%; 
         display: grid; 
         grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
-        justify-content: center; /* Ensures content is centered */
+        justify-content: center; 
         gap: 40px; max-width: 1400px; margin: 0 auto; 
     }
 
@@ -236,26 +236,25 @@
         .cart-wrapper { position: relative; display: inline-block; }
         .cart-badge { top: -5px; right: -8px; width: 16px; height: 16px; font-size: 9px; border: 2px solid #fff; }
         
-        /* * MOBILE COLLECTION ADJUSTMENTS 
-         * 1. gap: 15px (tighter)
-         * 2. padding: Equal left/right (10px) to center content perfectly
-         * 3. minmax(160px) allows 2 columns on most standard phones
-        */
+        /* * MOBILE COLLECTION: ONE BY ONE
+         * 1. grid-template-columns: 1fr -> Forces single column (one item per row)
+         * 2. padding: 20px 35px... -> Wider side padding ensures equal left/right margins 
+         * and centers content perfectly.
+         */
         #collection { 
-            gap: 15px; 
-            padding: 20px 10px 120px 10px; 
-            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 30px; 
+            padding: 20px 35px 120px 35px; 
+            grid-template-columns: 1fr;
         }
         
-        /* Make items smaller visually */
-        .product-card { padding: 10px; border-radius: 25px; }
-        .img-wrapper { border-radius: 20px; }
-        .card-content { padding: 15px 5px 5px 5px; }
-        .product-name { font-size: 1.1rem; margin-bottom: 8px; }
-        .price-container { padding: 5px 15px; margin-bottom: 15px; }
-        .price-tag { font-size: 1rem; }
-        .card-actions { gap: 8px; }
-        .btn { padding: 10px; font-size: 0.7rem; border-radius: 14px; }
+        /* Restore standard padding/sizing for the single-column cards */
+        .product-card { padding: 15px; border-radius: 30px; }
+        .img-wrapper { border-radius: 25px; }
+        .card-content { padding: 20px 10px 10px 10px; }
+        .product-name { font-size: 1.4rem; margin-bottom: 8px; }
+        .price-container { padding: 8px 20px; margin-bottom: 20px; }
+        .price-tag { font-size: 1.2rem; }
+        .btn { padding: 14px; font-size: 0.9rem; }
 
         #cartSidebar { width: 100%; right: -100%; }
         #cartSidebar.active { right: 0; }
@@ -564,7 +563,7 @@
     window.checkout = () => { if(cart.length === 0) return showToast("Cart is empty!", "error"); document.getElementById('cartSidebar').classList.remove('active'); document.getElementById('checkoutModal').classList.add('open'); };
     window.closeCheckout = () => document.getElementById('checkoutModal').classList.remove('open');
 
-    // --- NEW CONFIRMATION MODAL LOGIC ---
+    // --- GENERIC CONFIRMATION MODAL LOGIC ---
     window.openConfirmModal = (title, desc, action) => {
         document.getElementById('gcTitle').innerText = title;
         document.getElementById('gcDesc').innerText = desc;
@@ -633,7 +632,6 @@
         modal.classList.add('open');
     }
 
-    // New Trigger to open premium modal instead of browser confirm
     window.triggerCancel = (orderId) => {
         openConfirmModal(
             "Cancel Order?", 
